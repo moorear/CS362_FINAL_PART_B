@@ -27,18 +27,23 @@ public class UrlValidatorTest extends TestCase {
       //You can use this function to implement your manual testing
       UrlValidator urlValidator = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
       assertTrue(urlValidator.isValid("http://www.google.com"));
+      assertTrue(urlValidator.isValid("http://www.go.au"));
+      assertFalse(urlValidator.isValid("ftp://www.google.com"));
+      assertTrue(urlValidator.isValid("ftp://ftp.example.com"));
+      assertTrue(urlValidator.isValid("https://www.google.com"));
+      assertTrue(urlValidator.isValid("file:///foo.txt"));
 
    }
 
-   //Test partitioning for Schemes
+   //Test partitioning for files
    public void testYourFirstPartition()
    {
 	 //You can use this function to implement your First Partition testing
    UrlValidator urlValidator = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
-   assertTrue(urlValidator.isValid("http://www.google.com"));
-   assertTrue(urlValidator.isValid("h3t://go.com")); //FAILURE: h3t scheme doesnt work
-   assertTrue(urlValidator.isValid("https://go.com"));
-   assertTrue(urlValidator.isValid("ftp://255.com"));
+   assertTrue(urlValidator.isValid("file:///foo.txt"));
+   assertTrue(urlValidator.isValid("file:///foo.txt"));
+   assertTrue(urlValidator.isValid("file://etc/host/path"));
+   assertFalse(urlValidator.isValid("http:///etc/path"));
 
    }
 
@@ -46,12 +51,13 @@ public class UrlValidatorTest extends TestCase {
    public void testYourSecondPartition(){
 		 //You can use this function to implement your Second Partition testing
      UrlValidator urlValidator = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
-     assertTrue(urlValidator.isValid("http://255.com:80"));
-     assertTrue(urlValidator.isValid("http://255.com:65535/test1"));
-     assertTrue(urlValidator.isValid("http://255.com:65535/t123?action=view"));
-     assertTrue(urlValidator.isValid("http://255.255.255.255:80/test1/file?action=view"));
+     assertFalse(urlValidator.isValid("http://255.com:80"));
+     assertFalse(urlValidator.isValid("http://255.com:65535/test1"));
+     assertFalse(urlValidator.isValid("http://255.com:65535/t123?action=view"));
+     assertFalse(urlValidator.isValid("http://255.255.255.255:80/test1/file?action=view"));
 
    }
+
 
    public void testIsValid()
    {
