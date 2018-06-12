@@ -30,23 +30,28 @@ public class UrlValidatorTest extends TestCase {
 
    }
 
-   //Testing for Schemes
+   //Test partitioning for Schemes
    public void testYourFirstPartition()
    {
 	 //You can use this function to implement your First Partition testing
    UrlValidator urlValidator = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
    assertTrue(urlValidator.isValid("http://www.google.com"));
-   //assertTrue(urlValidator.isValid("h3t://go.com")); //h3t scheme doesnt work
-   assertTrue(urlValidator.isValid("http://go.com"));
+   assertTrue(urlValidator.isValid("h3t://go.com")); //FAILURE: h3t scheme doesnt work
+   assertTrue(urlValidator.isValid("https://go.com"));
    assertTrue(urlValidator.isValid("ftp://255.com"));
 
    }
 
+   //Test partitioning for different Paths and Authorities
    public void testYourSecondPartition(){
 		 //You can use this function to implement your Second Partition testing
+     UrlValidator urlValidator = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+     assertTrue(urlValidator.isValid("http://255.com:80"));
+     assertTrue(urlValidator.isValid("http://255.com:65535/test1"));
+     assertTrue(urlValidator.isValid("http://255.com:65535/t123?action=view"));
+     assertTrue(urlValidator.isValid("http://255.255.255.255:80/test1/file?action=view"));
 
    }
-   //You need to create more test cases for your Partitions if you need to
 
    public void testIsValid()
    {
